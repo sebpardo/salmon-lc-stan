@@ -11,10 +11,6 @@ data {
   real<lower=0> cvdummy;  // cv
 }
 
-transformed data{
-   real expcvdummy = cvdummy;  // cv
-}
-
 // this are the parameters for which we do sampling (i.e. assign priors)
 parameters {
   vector<lower=0>[N] pfa;         // pre-fishery abundance per year
@@ -56,8 +52,8 @@ model {
   }
   
   // lognormal distributions
-  logsmolts  ~ normal(mulogsmolts, expcvdummy);
-  logpfa  ~ normal(mulogpfa,  expcvdummy);
-  logreturns ~ normal(mulogreturns, expcvdummy);
+  logsmolts  ~ normal(mulogsmolts, cvdummy);
+  logpfa  ~ normal(mulogpfa, cvdummy);
+  logreturns ~ normal(mulogreturns, cvdummy);
 }
 
